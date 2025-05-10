@@ -1,0 +1,67 @@
+- Basic Dataset Info
+print("=== Dataset Overview ===")
+print(f"Shape: {df.shape} (Rows, Columns)")
+print("\nFirst 5 entries:")
+display(df.head())
+
+Dataset has 30 rows (samples) and 2 columns
+Columns: YearsExperience (numeric), Salary (numeric)
+Shows sample data with experience ranging from 1.1 to 3.2 years
+
+
+ - Data Quality Check
+print("\n=== Missing Values ===")
+print(df.isnull().sum())
+
+print("\n=== Data Types ===")
+print(df.dtypes)
+
+
+YearsExperience    0  
+Salary             0  
+dtype: int64  
+
+YearsExperience    float64  
+Salary             float64
+
+-No missing values
+-Correct numeric data types
+
+
+
+ - Statistical Summary
+print("\n=== Statistical Summary ===")
+stats = df.describe().T
+stats['IQR'] = stats['75%'] - stats['25%']  
+display(stats)
+
+
+-Experience ranges from 1.1 to 10.5 years
+Salaries range from 37,731  to 122,391
+Large IQR for salary indicates high variability
+
+
+
+
+ - Distribution Plots
+plt.figure(figsize=(12, 5))
+
+
+plt.subplot(1, 2, 1)
+sns.histplot(df['YearsExperience'], kde=True, color='blue', bins=8)
+plt.title('Years of Experience Distribution')
+
+
+plt.subplot(1, 2, 2)
+sns.histplot(df['Salary'], kde=True, color='green', bins=8)
+plt.title('Salary Distribution')
+
+plt.tight_layout()
+plt.savefig('visualizations/distributions.png')
+plt.show()
+
+
+
+Both variables are right-skewed
+Most employees have 1-8 years experience
+Majority of salaries fall between 50k − 90k
